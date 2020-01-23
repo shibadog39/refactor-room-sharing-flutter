@@ -6,44 +6,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final bottomButtons = new Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          FlatButton(
-            onPressed: () {},
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                new Icon(Icons.lightbulb_outline),
-                new Text('Idea'),
-              ],
-            ),
-          ),
-          FlatButton(
-            onPressed: () {},
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                new Icon(Icons.lightbulb_outline),
-                new Text('Idea'),
-              ],
-            ),
-          ),
-          FlatButton(
-            onPressed: () {},
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                new Icon(Icons.lightbulb_outline),
-                new Text('Idea'),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
     final results = Container(
         padding: EdgeInsets.all(20),
         child: Card(
@@ -74,39 +36,79 @@ class MyApp extends StatelessWidget {
           ),
         ));
 
+    final resultTable = Center(
+        child: Container(
+      height: 150,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 300,
+            child: Container(
+              child: Column(
+                children: [results],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ));
+
+    Widget listItem(Color color, String title) => Container(
+      height: 100.0,
+      color: color,
+      child: Center(
+        child: Text(
+          "$title",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Refactor Room Sharing'),
-        ),
-        body: Center(
-            child: Container(
-          height: 600,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 300,
-                child: Container(
-                  child: Column(
-                    children: [results],
-                  ),
-                ),
+        body: CustomScrollView(slivers: [
+          _MyAppBar(),
+          SliverToBoxAdapter(child: resultTable),
+          SliverList(
+              delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return listItem(Colors.green[400], "Sliver List item: $index");
+                  },
+                  childCount: 20),
               ),
-            ],
-          ),
-        )),
+        ]),
         floatingActionButton: FloatingActionButton(
           tooltip: 'Increment',
           child: Icon(Icons.add),
         ),
-        bottomNavigationBar: bottomButtons,
       ),
     );
   }
 }
+
+class _MyAppBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      title: Text('Pay'),
+      floating: true,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.history),
+          onPressed: () => null,
+        ),
+      ],
+    );
+  }
+}
+
