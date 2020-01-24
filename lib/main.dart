@@ -55,20 +55,31 @@ class MyApp extends StatelessWidget {
       ),
     ));
 
-    Widget listItem(Color color, String title) => Container(
-      height: 100.0,
-      color: color,
-      child: Center(
-        child: Text(
-          "$title",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
+//    Widget listItem(Color color, String title) => Container(
+//          height: 50.0,
+//          child: Center(
+//              child: Column(
+//            children: [
+//              Row(
+//                children: [
+//
+//                ],
+//              )
+//            ],
+//          )),
+//        );
+
+    Widget listItem(Color color, String title) => Card(
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.brown.shade800,
+              child: Text('櫻井'),
+            ),
+            title: Text('家賃'),
+            subtitle: Text('2020/1/24'),
+            trailing: Text('¥170500'),
+          ),
+        );
 
     return MaterialApp(
       title: 'Flutter Demo',
@@ -80,12 +91,10 @@ class MyApp extends StatelessWidget {
           _MyAppBar(),
           SliverToBoxAdapter(child: resultTable),
           SliverList(
-              delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return listItem(Colors.green[400], "Sliver List item: $index");
-                  },
-                  childCount: 20),
-              ),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return listItem(Colors.green[400], "Sliver List item: $index");
+            }, childCount: 20),
+          ),
         ]),
         floatingActionButton: FloatingActionButton(
           tooltip: 'Increment',
@@ -111,4 +120,3 @@ class _MyAppBar extends StatelessWidget {
     );
   }
 }
-
