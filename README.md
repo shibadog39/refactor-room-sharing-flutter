@@ -3,7 +3,7 @@
 
 
 ## 画面イメージ
-- 1/27
-スクリーンショット 2020-01-27 9.21.31
+- 1/27  
+  ![image](https://user-images.githubusercontent.com/26875412/73144208-95e9ba80-40e6-11ea-818e-825fa16a9e20.png)
 
 
