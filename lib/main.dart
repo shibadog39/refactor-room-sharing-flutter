@@ -6,100 +6,74 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-//    final results = Container(
-//        padding: EdgeInsets.all(20),
-//        child: Card(
-//          child: Table(
-//            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-//            children: [
-//              TableRow(
-//                  decoration: new BoxDecoration(
-//                      border: new Border(
-//                          bottom: BorderSide(
-//                              width: 1.0, color: Color(0xFFFF000000)))),
-//                  children: [
-//                    Text('名前'),
-//                    Text('負担'),
-//                    Text('精算'),
-//                  ]),
-//              TableRow(children: [
-//                Text('櫻井'),
-//                Text('¥120'),
-//                Text('+ ¥60'),
-//              ]),
-//              TableRow(children: [
-//                Text('尾花'),
-//                Text('¥0'),
-//                Text('- ¥60'),
-//              ]),
-//            ],
-//          ),
-//        ));
-//
-//    final resultTable = Center(
-//        child: Container(
-//      height: 150,
-//      child: Row(
-//        crossAxisAlignment: CrossAxisAlignment.start,
-//        mainAxisAlignment: MainAxisAlignment.center,
-//        children: [
-//          Container(
-//            width: 300,
-//            child: Container(
-//              child: Column(
-//                children: [results],
-//              ),
-//            ),
-//          ),
-//        ],
-//      ),
-//    ));
-
     Widget titleSection = Container(
       padding: const EdgeInsets.all(32),
-      color: Colors.orange[100],
-      child: Row(
+      child: Column(
         children: [
-          Expanded(
+          Container(
+            decoration: new BoxDecoration(
+                color: Colors.green[200],
+                borderRadius: new BorderRadius.only(
+                    topLeft:  const  Radius.circular(40.0),
+                    topRight: const  Radius.circular(40.0))
+            ),
+            padding: const EdgeInsets.all(32),
             child: Center(
-              child: Column(
-                children: [
-                  Text(
-                    '+ ¥500',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '櫻井',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
+              child: Text(
+                '¥200 もらう',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-          Expanded(
-            child: Center(
-              child: Column(
-                children: [
-                  Text(
-                    '+ ¥500',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '櫻井',
+          Container(
+            decoration: new BoxDecoration(
+                color: Colors.green[100],
+                borderRadius: new BorderRadius.only(
+                    bottomLeft:  const  Radius.circular(40.0),
+                    bottomRight: const  Radius.circular(40.0))
+            ),
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Text('合計支払い額',
                     style: TextStyle(
                       fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    )),
+                Row(children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text('櫻井',
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                        Text('¥500',
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text('尾花',
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                        Text('¥100',
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                      ],
+                    ),
+                  ),
+                ]),
+              ],
             ),
           ),
         ],
@@ -110,7 +84,7 @@ class MyApp extends StatelessWidget {
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.brown.shade800,
-              child: Text('櫻井'),
+              child: Text('櫻'),
             ),
             title: Text('家賃'),
             subtitle: Text('2020/1/24'),
