@@ -93,7 +93,8 @@ class MyPay extends StatelessWidget {
     ),
   );
 
-  Widget listItem(Color color, String title) => Card(
+  Widget listItem(Color color, String title) =>
+      Card(
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: Colors.brown.shade800,
@@ -104,6 +105,30 @@ class MyPay extends StatelessWidget {
           trailing: Text('¥100000'),
         ),
       );
+
+  Widget buildDrawerList(BuildContext context) {
+    return ListView(
+      // Important: Remove any padding from the ListView.
+      padding: EdgeInsets.zero,
+      children: <Widget>[
+        DrawerHeader(
+          child: Text('Refactor Room Sharing'),
+          decoration: BoxDecoration(
+            color: Colors.green[400],
+          ),
+        ),
+        ListTile(
+          title: Text('ログアウト'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pop(context);
+          },
+        )
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +142,9 @@ class MyPay extends StatelessWidget {
           }, childCount: 20),
         ),
       ]),
+      drawer: Drawer(
+        child: buildDrawerList(context),
+      ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -142,7 +170,8 @@ class _MyPayBar extends StatelessWidget {
 }
 
 class MyHistory extends StatelessWidget {
-  Widget listItem(Color color, String title) => Card(
+  Widget listItem(Color color, String title) =>
+      Card(
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: Colors.brown.shade800,
