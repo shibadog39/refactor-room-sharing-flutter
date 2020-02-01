@@ -15,7 +15,10 @@ class PayItem {
     if (json == null) return null;
 
     return PayItem(
-        // TODO: Implement this
-        );
+      date: json['date'] as String,
+      name: json['name'] as String,
+      price: json['price'] as double,
+      userId: json['userId'] as int,
+    );
   }
 }

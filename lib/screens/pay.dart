@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:refactor_room_sharing/models/json_strings.dart';
+import 'package:refactor_room_sharing/models/pay_item.dart';
 
 class MyPay extends StatelessWidget {
   Widget resultSection = Container(
@@ -73,19 +76,6 @@ class MyPay extends StatelessWidget {
     ),
   );
 
-  Widget listItem(Color color, String title) =>
-      Card(
-        child: ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.brown.shade800,
-            child: Text('櫻'),
-          ),
-          title: Text('家賃'),
-          subtitle: Text('2020/1/24'),
-          trailing: Text('¥100000'),
-        ),
-      );
-
   Widget buildDrawerList(BuildContext context) {
     return ListView(
       // Important: Remove any padding from the ListView.
@@ -112,14 +102,17 @@ class MyPay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dynamic parsedJson = json.decode(JsonStrings.listOfSampleObjects);
+    final dynamic deserializedObjects = parsedJson.map((dynamic o) => PayItem.fromJson(o));
+    final List<Widget> listOfObjects = deserializedObjects.toList();
     return Scaffold(
       body: CustomScrollView(slivers: [
         _MyPayBar(),
         SliverToBoxAdapter(child: resultSection),
         SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            return listItem(Colors.green[400], "Sliver List item: $index");
-          }, childCount: 20),
+          delegate: SliverChildListDelegate((context) {
+            return listOfObjects;
+          }),
         ),
       ]),
       drawer: Drawer(
@@ -145,6 +138,27 @@ class _MyPayBar extends StatelessWidget {
           onPressed: () => Navigator.pushNamed(context, '/history'),
         ),
       ],
+    );
+  }
+}
+
+class _MyItem extends StatelessWidget {
+  final PayItem item;
+
+  _MyItem(this.item, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.brown.shade800,
+          child: Text(item.userId.toString()),
+        ),
+        title: Text(item.name),
+        subtitle: Text(item.date),
+        trailing: Text("¥${item.price}"),
+      ),
     );
   }
 }
