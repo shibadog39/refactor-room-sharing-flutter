@@ -104,16 +104,15 @@ class MyPay extends StatelessWidget {
   Widget build(BuildContext context) {
     final dynamic parsedJson = json.decode(JsonStrings.listOfSampleObjects);
     final dynamic deserializedObjects =
-        parsedJson.map((dynamic o) => PayItem.fromJson(o));
-    final List<dynamic> itemObjects =
-        deserializedObjects.map((item) => _MyItem(item)).toList();
-    final List<Widget> castedItemObjects = itemObjects.cast<Widget>();
+        parsedJson.map((dynamic o) => PayItem.fromJson(o)).toList();
+    final List<PayItem> itemObjects = deserializedObjects.cast<PayItem>();
+    final List<Widget> itemCardList = itemObjects.map((item) => _MyItem(item)).toList();
     return Scaffold(
       body: CustomScrollView(slivers: [
         _MyPayBar(),
         SliverToBoxAdapter(child: resultSection),
         SliverList(
-          delegate: SliverChildListDelegate(castedItemObjects),
+          delegate: SliverChildListDelegate(itemCardList),
         ),
       ]),
       drawer: Drawer(
