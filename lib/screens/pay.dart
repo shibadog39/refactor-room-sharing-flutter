@@ -103,16 +103,17 @@ class MyPay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dynamic parsedJson = json.decode(JsonStrings.listOfSampleObjects);
-    final dynamic deserializedObjects = parsedJson.map((dynamic o) => PayItem.fromJson(o));
-    final List<Widget> listOfObjects = deserializedObjects.toList();
+    final dynamic deserializedObjects =
+        parsedJson.map((dynamic o) => PayItem.fromJson(o));
+    final List<dynamic> itemObjects =
+        deserializedObjects.map((item) => _MyItem(item)).toList();
+    final List<Widget> castedItemObjects = itemObjects.cast<Widget>();
     return Scaffold(
       body: CustomScrollView(slivers: [
         _MyPayBar(),
         SliverToBoxAdapter(child: resultSection),
         SliverList(
-          delegate: SliverChildListDelegate((context) {
-            return listOfObjects;
-          }),
+          delegate: SliverChildListDelegate(castedItemObjects),
         ),
       ]),
       drawer: Drawer(
@@ -142,8 +143,9 @@ class _MyPayBar extends StatelessWidget {
   }
 }
 
+
 class _MyItem extends StatelessWidget {
-  final PayItem item;
+  final dynamic item;
 
   _MyItem(this.item, {Key key}) : super(key: key);
 
@@ -153,11 +155,11 @@ class _MyItem extends StatelessWidget {
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: Colors.brown.shade800,
-          child: Text(item.userId.toString()),
+          child: Text(item.userId?.toString()),
         ),
-        title: Text(item.name),
-        subtitle: Text(item.date),
-        trailing: Text("¥${item.price}"),
+        title: Text(item.name?.toString()),
+        subtitle: Text(item.date?.toString()),
+        trailing: Text("¥${item.price?.toString()}"),
       ),
     );
   }
