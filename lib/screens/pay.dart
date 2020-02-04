@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:refactor_room_sharing/models/json_strings.dart';
-import 'package:refactor_room_sharing/models/pay_item.dart';
+import 'package:refactor_room_sharing/models/yet_item_list.dart';
 
 class MyPay extends StatelessWidget {
   Widget resultSection = Container(
@@ -102,11 +102,11 @@ class MyPay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dynamic parsedJson = json.decode(JsonStrings.listOfSampleObjects);
-    final dynamic deserializedObjects =
-        parsedJson.map((dynamic o) => PayItem.fromJson(o)).toList();
-    final List<PayItem> itemObjects = deserializedObjects.cast<PayItem>();
-    final List<Widget> itemCardList = itemObjects.map((item) => _MyItem(item)).toList();
+    final List<Widget> itemCardList =
+        YetItemList.fromJsonString(JsonStrings.listOfSampleObjects)
+            .yetItems
+            .map((item) => _MyItem(item))
+            .toList();
     return Scaffold(
       body: CustomScrollView(slivers: [
         _MyPayBar(),
@@ -141,7 +141,6 @@ class _MyPayBar extends StatelessWidget {
     );
   }
 }
-
 
 class _MyItem extends StatelessWidget {
   final dynamic item;
