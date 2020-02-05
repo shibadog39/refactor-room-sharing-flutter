@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:refactor_room_sharing/screens/pay_form.dart';
 import 'package:refactor_room_sharing/models/json_strings.dart';
 import 'package:refactor_room_sharing/models/yet_item_list.dart';
 
@@ -111,6 +112,7 @@ class MyPay extends StatelessWidget {
       body: CustomScrollView(slivers: [
         _MyPayBar(),
         SliverToBoxAdapter(child: resultSection),
+        SliverToBoxAdapter(child: PayForm()),
         SliverList(
           delegate: SliverChildListDelegate(itemCardList),
         ),
