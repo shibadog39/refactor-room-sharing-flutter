@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class PayForm extends StatefulWidget {
   @override
@@ -24,6 +25,31 @@ class PayFormState extends State<PayForm> {
       key: _formKey,
       child: Column(children: <Widget>[
         TextFormField(
+          decoration: InputDecoration(labelText: 'Enter your username'),
+          // The validator receives the text that the user has entered.
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'Please enter some text';
+            }
+            return null;
+          },
+        ),
+        TextFormField(
+          decoration: InputDecoration(labelText: 'Enter what you paid for'),
+          // The validator receives the text that the user has entered.
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'Please enter some text';
+            }
+            return null;
+          },
+        ),
+        TextFormField(
+          decoration: InputDecoration(labelText: 'Enter amount you paid'),
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            WhitelistingTextInputFormatter.digitsOnly
+          ],
           // The validator receives the text that the user has entered.
           validator: (value) {
             if (value.isEmpty) {

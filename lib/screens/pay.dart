@@ -112,7 +112,6 @@ class MyPay extends StatelessWidget {
       body: CustomScrollView(slivers: [
         _MyPayBar(),
         SliverToBoxAdapter(child: resultSection),
-        SliverToBoxAdapter(child: PayForm()),
         SliverList(
           delegate: SliverChildListDelegate(itemCardList),
         ),
@@ -121,7 +120,19 @@ class MyPay extends StatelessWidget {
         child: buildDrawerList(context),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Increment',
+        onPressed: () {
+          return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                // Retrieve the text the that user has entered by using the
+                // TextEditingController.
+                content: PayForm(),
+              );
+            },
+          );
+        },
+        tooltip: 'Add Payment',
         child: Icon(Icons.add),
       ),
     );
