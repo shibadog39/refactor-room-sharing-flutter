@@ -125,8 +125,8 @@ class MyPay extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                // Retrieve the text the that user has entered by using the
-                // TextEditingController.
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(18.0))),
                 content: PayForm(),
               );
             },

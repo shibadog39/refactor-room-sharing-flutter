@@ -23,7 +23,7 @@ class PayFormState extends State<PayForm> {
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
-      child: Column(children: <Widget>[
+      child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
         TextFormField(
           decoration: InputDecoration(labelText: 'Enter your username'),
           // The validator receives the text that the user has entered.
@@ -58,7 +58,11 @@ class PayFormState extends State<PayForm> {
             return null;
           },
         ),
+        SizedBox(height: 15),
         RaisedButton(
+          color: Colors.white,
+          shape: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
           onPressed: () {
             // Validate returns true if the form is valid, otherwise false.
             if (_formKey.currentState.validate()) {
