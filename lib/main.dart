@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:refactor_room_sharing/screens/pay.dart';
 import 'package:refactor_room_sharing/screens/history.dart';
+import 'package:refactor_room_sharing/models/yet_item_list.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+      ChangeNotifierProvider(
+        create: (context) => YetItemList.fromJsonString(''),
+        child: MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -21,4 +28,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
