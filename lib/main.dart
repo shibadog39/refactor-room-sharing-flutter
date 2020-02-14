@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:refactor_room_sharing/screens/pay.dart';
 import 'package:refactor_room_sharing/screens/history.dart';
 import 'package:refactor_room_sharing/models/yet_item_list.dart';
+import 'package:refactor_room_sharing/models/json_strings.dart';
 
 void main() => runApp(
       ChangeNotifierProvider(
-        create: (context) => YetItemList.fromJsonString(''),
+        create: (context) => YetItemList.fromJsonString(JsonStrings.listOfSampleObjects),
         child: MyApp(),
       ),
     );
