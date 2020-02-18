@@ -1,7 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:refactor_room_sharing/screens/pay_form.dart';
-import 'package:refactor_room_sharing/models/pay_item.dart';
 import 'package:refactor_room_sharing/models/yet_item_list.dart';
 
 class MyPay extends StatelessWidget {
@@ -127,22 +126,16 @@ class MyPay extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          var yetItemList = Provider.of<YetItemList>(context);
-          yetItemList.add(PayItem(
-              date: "2/14",
-              name: "追加したやつ",
-              price: 10000,
-              userId: 1));
-//          return showDialog(
-//            context: context,
-//            builder: (context) {
-//              return AlertDialog(
-//                shape: RoundedRectangleBorder(
-//                    borderRadius: BorderRadius.all(Radius.circular(18.0))),
-//                content: PayForm(),
-//              );
-//            },
-//          );
+          return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(18.0))),
+                content: PayForm(),
+              );
+            },
+          );
         },
         tooltip: 'Add Payment',
         child: Icon(Icons.add),
