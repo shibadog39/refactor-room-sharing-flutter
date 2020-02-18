@@ -93,7 +93,7 @@ class PayFormState extends State<PayForm> {
                   name: this._name,
                   price: this._price,
                   userId: this._userId));
-              // TODO: dialogを閉じる
+              Navigator.pop(context);
             }
           },
           child: Text('Submit'),
