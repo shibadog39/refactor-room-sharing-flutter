@@ -4,7 +4,40 @@ import 'package:refactor_room_sharing/screens/pay_form.dart';
 import 'package:refactor_room_sharing/models/yet_item_list.dart';
 
 class MyPay extends StatelessWidget {
-  Widget resultSection = Container(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(slivers: [
+        _MyPayBar(),
+        _MyResultSection(),
+        _MyItemList(),
+      ]),
+      drawer: Drawer(
+        child: _MyDrawer(),
+      ),
+      floatingActionButton: _MyFloatingButton(),
+    );
+  }
+}
+
+class _MyPayBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      title: Text('Pay'),
+      floating: true,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.history),
+          onPressed: () => Navigator.pushNamed(context, '/history'),
+        ),
+      ],
+    );
+  }
+}
+
+class _MyResultSection extends StatelessWidget {
+  final Widget resultSection = Container(
     padding: const EdgeInsets.all(32),
     child: Column(
       children: [
@@ -76,7 +109,51 @@ class MyPay extends StatelessWidget {
     ),
   );
 
-  Widget buildDrawerList(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(child: resultSection);
+  }
+}
+
+class _MyItemList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<YetItemList>(
+      builder: (context, itemList, child) {
+        List<Widget> itemCardList =
+            itemList.yetItems.map((item) => _MyItem(item)).toList();
+        return SliverList(
+          delegate: SliverChildListDelegate(itemCardList),
+        );
+      },
+    );
+  }
+}
+
+class _MyItem extends StatelessWidget {
+  final dynamic item;
+
+  _MyItem(this.item, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.brown.shade800,
+          child: Text(item.userId?.toString()),
+        ),
+        title: Text(item.name?.toString()),
+        subtitle: Text(item.date?.toString()),
+        trailing: Text("¥${item.price?.toString()}"),
+      ),
+    );
+  }
+}
+
+class _MyDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return ListView(
       // Important: Remove any padding from the ListView.
       padding: EdgeInsets.zero,
@@ -99,84 +176,26 @@ class MyPay extends StatelessWidget {
       ],
     );
   }
+}
 
+class _MyFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-    var list = Consumer<YetItemList>(
-      builder: (context, itemList, child){
-        List<Widget> itemCardList =
-        itemList.yetItems
-            .map((item) => _MyItem(item))
-            .toList();
-        return SliverList(
-          delegate: SliverChildListDelegate(itemCardList),
+    return FloatingActionButton(
+      onPressed: () {
+        return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(18.0))),
+              content: PayForm(),
+            );
+          },
         );
       },
-    );
-
-    return Scaffold(
-      body: CustomScrollView(slivers: [
-        _MyPayBar(),
-        SliverToBoxAdapter(child: resultSection),
-        list,
-      ]),
-      drawer: Drawer(
-        child: buildDrawerList(context),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          return showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(18.0))),
-                content: PayForm(),
-              );
-            },
-          );
-        },
-        tooltip: 'Add Payment',
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class _MyPayBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SliverAppBar(
-      title: Text('Pay'),
-      floating: true,
-      actions: [
-        IconButton(
-          icon: Icon(Icons.history),
-          onPressed: () => Navigator.pushNamed(context, '/history'),
-        ),
-      ],
-    );
-  }
-}
-
-class _MyItem extends StatelessWidget {
-  final dynamic item;
-
-  _MyItem(this.item, {Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.brown.shade800,
-          child: Text(item.userId?.toString()),
-        ),
-        title: Text(item.name?.toString()),
-        subtitle: Text(item.date?.toString()),
-        trailing: Text("¥${item.price?.toString()}"),
-      ),
+      tooltip: 'Add Payment',
+      child: Icon(Icons.add),
     );
   }
 }
