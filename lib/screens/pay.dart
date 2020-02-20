@@ -146,6 +146,32 @@ class _MyItem extends StatelessWidget {
         title: Text(item.name?.toString()),
         subtitle: Text(item.date?.toString()),
         trailing: Text("¥${item.price?.toString()}"),
+        onLongPress: () {
+          return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text("Delete payment"),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(18.0))),
+                content: Text("${item.name?.toString()}を削除しますか"),
+                actions: <Widget>[
+                  // ボタン領域
+                  FlatButton(
+                    child: Text("Cancel"),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  FlatButton(
+                      child: Text("OK"),
+                      onPressed: () {
+                        // TODO: リストから削除する
+                        Navigator.pop(context);
+                      }),
+                ],
+              );
+            },
+          );
+        },
       ),
     );
   }
@@ -187,6 +213,7 @@ class _MyFloatingButton extends StatelessWidget {
           context: context,
           builder: (context) {
             return AlertDialog(
+              title: Text("Add Your Payment"),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(18.0))),
               content: PayForm(),
